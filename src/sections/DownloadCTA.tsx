@@ -14,11 +14,20 @@ const DownloadCTA = () => {
   const [dialogContent, setDialogContent] = useState({ title: '', message: '' });
 
   const handleDownload = () => {
+    // 1. Show your nice success dialog
     setDialogContent({
-      title: 'Download HerShield',
-      message: 'The APK download will start shortly. Thank you for choosing HerShield!',
+      title: 'Downloading HerShield...',
+      message: 'Your download should start automatically. Thank you for choosing HerShield!',
     });
     setShowDialog(true);
+
+    // 2. Trigger the actual file download invisibly
+    const link = document.createElement('a');
+    link.href = '/hershield.apk'; // This looks for the file in your public folder
+    link.download = 'HerShield.apk'; // This names the downloaded file
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const handleShare = () => {
